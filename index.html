@@ -31,6 +31,15 @@
                 editorSource.oninput = sync;
                 sync();
             };
+            //textareaの高さ自動計算
+            $(function() {
+                var $textarea = $('#editor');
+                var lineHeight = parseInt($textarea.css('lineHeight'));
+                $textarea.on('input', function(evt) {
+                    var lines = ($(this).val() + '\n').match(/\n/g).length;
+                    $(this).height(lineHeight * lines);
+                });
+            });
         </script>
         <style>
             pre, code, var, samp, kbd, .mono {
@@ -38,6 +47,11 @@
                 font-family: Consolas, 'Courier New', Courier, Monaco, monospace;
                 font-size: 14px;
                 line-height: 1.2;
+            }
+            #editor {
+                width: 200px;
+                padding: 8px;
+                line-height: 20px;
             }
         </style>
     </head>
