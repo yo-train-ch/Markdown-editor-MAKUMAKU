@@ -43,20 +43,18 @@
     </head>
     <body class="p-3">
         <div class="container">
-            <form action="" method="POST">
-                <input class="form-control" type="text" placeholder="title" aria-label="default input example">
-                <div class="row pb-2 pt-2">
-                    <div class="col">
-                        <textarea id="editor" name="editor" class="form-control" rows="20" placeholder="Write something here..."></textarea>
-                    </div>
-                    <div class="col">
-                        <div id="preview"></div>
-                    </div>
+            <input class="form-control" type="text" placeholder="title" aria-label="default input example">
+            <div class="row pb-2 pt-2">
+                <div class="col">
+                    <textarea id="editor" name="editor" class="form-control" rows="20" placeholder="Write something here..."></textarea>
                 </div>
-                <!-- Button trigger modal -->
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">HTMLを表示</button>
-                <button type="submit" name="keep_codes" class="btn btn-primary">保存</button>
-            </form>
+                <div class="col">
+                    <div id="preview"></div>
+                </div>
+            </div>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">HTMLを表示</button>
+            <button type="submit" name="keep_codes" class="btn btn-primary">保存</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
