@@ -4,14 +4,14 @@
         <title>Markdownエディターのまくまく</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <script src="./lib/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
-        <link href="./lib/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
-        <script src="./lib/jquery/jquery-3.6.3.min.js"></script>
-        <script src="./lib/marked/marked.min.js"></script>
+        <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/bootstrap-5.0.2/js/bootstrap.bundle.min.js"></script>
+        <link href="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/jquery/jquery-3.6.3.min.js"></script>
+        <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/marked/marked.min.js"></script>
         <!-- highlight.js -->
-        <link rel="stylesheet" href="./lib/highlightjs/style.css">
-        <script src="./lib/highlightjs/highlight.min.js"></script>
-        
+        <link rel="stylesheet" href="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/highlightjs/style.css">
+        <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/highlightjs/highlight.min.js"></script>
+        <script src="https://iwb.jp/s/js/tiny-console.js"></script>
         <script>
             window.onload = function(){
                 var editorSource = document.querySelector('#editor');
@@ -27,10 +27,27 @@
                     $('pre code').each(function(i, block) {
                         hljs.highlightBlock(block);
                     });
+                    
+                    
+                    //自動見出し位置合わせ
+                    var editor_code = document.getElementById("editor").value;
+                    var editors = document.getElementById("editor");
+                    var previewer = document.getElementById("preview");
+                    var pos      = editors.selectionStart;
+                    var before   = editor_code.substr(0, pos);
+                    var count = (before.match(/#+ (w*[・一-龠_ぁ-ん_ァ-ヴーａ-ｚＡ-Ｚa-zA-Z0-9]+|[a-zA-Z0-9_]+|[a-zA-Z0-9_]w*)/g) || []).length;
+                    var elm = document.getElementById('preview');
+                    var counts = elm.querySelectorAll('h1,h2,h3,h4,h5,h6');
+                    
+                    var hElems = elm.querySelectorAll("h1, h2, h3, h4, h5, h6");
+                    var elem = hElems[count - 2];
+                    var main = document.getElementById('preview');
+                    main.scrollTop = elem.offsetTop;
                 };
                 editorSource.oninput = sync;
                 sync();
             };
+            
         </script>
         <style>
             pre, code, var, samp, kbd, .mono {
@@ -39,12 +56,13 @@
                 font-size: 14px;
                 line-height: 1.2;
             }
-            #editor {
+            #editorWrapper #editor {
                 height: 500px;
             }
             #preview {
                 height: 500px;
-                overflow: scroll;
+                overflow: auto;
+                overflow-y: auto;
             }
         </style>
     </head>
@@ -55,7 +73,7 @@
                 <div class="col">
                     <textarea id="editor" name="editor" class="form-control" rows="20" placeholder="Write something here..."></textarea>
                 </div>
-                <div class="col">
+                <div class="col" id="previewWrapper">
                     <div id="preview"></div>
                 </div>
             </div>
