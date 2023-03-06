@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="ja">
     <head>
         <title>Markdownエディターのまくまく</title>
@@ -11,43 +10,6 @@
         <!-- highlight.js -->
         <link rel="stylesheet" href="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/highlightjs/style.css">
         <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/highlightjs/highlight.min.js"></script>
-        <script>
-            window.onload = function(){
-                var editorSource = document.querySelector('#editor');
-                // MarkdownからHTMLに変換する
-                var convertedSource = document.querySelector('#converted ');
-                var sync = function(){
-                    var value = editorSource.value;
-                    var md = marked(value);		
-                    var convertedSource = document.getElementById('converted').value = md;
-                    //プレビュー機能
-                    var previewSource = $('#preview').html(md);
-                    
-                    $('pre code').each(function(i, block) {
-                        hljs.highlightBlock(block);
-                    });
-                    
-                    
-                    //自動見出し位置合わせ
-                    var editor_code = document.getElementById("editor").value;
-                    var editors = document.getElementById("editor");
-                    var previewer = document.getElementById("preview");
-                    var pos      = editors.selectionStart;
-                    var before   = editor_code.substr(0, pos);
-                    var count = (before.match(/#+ (w*[・一-龠_ぁ-ん_ァ-ヴーａ-ｚＡ-Ｚa-zA-Z0-9]+|[a-zA-Z0-9_]+|[a-zA-Z0-9_]w*)/g) || []).length;
-                    var elm = document.getElementById('preview');
-                    var counts = elm.querySelectorAll('h1,h2,h3,h4,h5,h6');
-                    
-                    var hElems = elm.querySelectorAll("h1, h2, h3, h4, h5, h6");
-                    var elem = hElems[count - 2];
-                    var main = document.getElementById('preview');
-                    main.scrollTop = elem.offsetTop;
-                };
-                editorSource.oninput = sync;
-                sync();
-            };
-            
-        </script>
         <style>
             pre, code, var, samp, kbd, .mono {
                 /*等幅フォント化*/
@@ -95,5 +57,51 @@
                 </div>
             </div>
         </div>
+                <script>
+            window.onload = function(){
+                var editorSource = document.querySelector('#editor');
+                // MarkdownからHTMLに変換する
+                var convertedSource = document.querySelector('#converted ');
+                var sync = function(){
+                    var value = editorSource.value;
+                    var md = marked(value);		
+                    var convertedSource = document.getElementById('converted').value = md;
+                    //プレビュー機能
+                    var previewSource = $('#preview').html(md);
+                    
+                    $('pre code').each(function(i, block) {
+                        hljs.highlightBlock(block);
+                    });
+                    
+                    
+                    //自動見出し位置合わせ
+                    var editor_code = document.getElementById("editor").value;
+                    var editors = document.getElementById("editor");
+                    var previewer = document.getElementById("preview");
+                    var pos      = editors.selectionStart;
+                    var before   = editor_code.substr(0, pos);
+                    var count = (before.match(/#+ (w*[・一-龠_ぁ-ん_ァ-ヴーａ-ｚＡ-Ｚa-zA-Z0-9]+|[a-zA-Z0-9_]+|[a-zA-Z0-9_]w*)/g) || []).length;
+                    var elm = document.getElementById('preview');
+                    var counts = elm.querySelectorAll('h1,h2,h3,h4,h5,h6');
+                    
+                    var hElems = elm.querySelectorAll("h1, h2, h3, h4, h5, h6");
+                    var elem = hElems[count - 2];
+                    var main = document.getElementById('preview');
+                    main.scrollTop = elem.offsetTop;
+                };
+                editorSource.oninput = sync;
+                sync();
+            };
+            $('#editor').on('keydown', function(e){
+                if (e.keyCode === 9) {
+                    e.preventDefault();
+                    var elem = e.target;
+                    var val = elem.value;
+                    var pos = elem.selectionStart;
+                    elem.value = val.substr(0, pos) + '\t' + val.substr(pos, val.length);
+                    elem.setSelectionRange(pos + 1, pos + 1);
+                }
+            });
+        </script>
     </body>
 </html>
