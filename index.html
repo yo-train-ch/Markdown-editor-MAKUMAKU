@@ -40,6 +40,7 @@
             </div>
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">HTMLを表示</button>
+            <button type="button" id="print-btn" class="btn btn-primary">印刷</button>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
@@ -102,6 +103,20 @@
                     elem.setSelectionRange(pos + 1, pos + 1);
                 }
             });
+            
+            document.getElementById('print-btn').addEventListener('click', () => {
+            	// 印刷用の iframe を生成
+            	const iframe = document.createElement('iframe');
+            	iframe.srcdoc = "<!DOCTYPE html>";
+            	document.body.appendChild(iframe);
+            	iframe.style.display = 'none';
+            	iframe.onload = () => {
+            		iframe.contentDocument.body.appendChild(document.getElementById('preview').cloneNode(true));
+            		document.querySelectorAll("link[rel='stylesheet']").forEach(el => iframe.contentDocument.head.appendChild(el.cloneNode(true)))
+            		iframe.contentWindow.print();
+            		iframe.contentWindow.addEventListener('afterprint', () => iframe.remove());
+            	}
+            })
         </script>
     </body>
 </html>
