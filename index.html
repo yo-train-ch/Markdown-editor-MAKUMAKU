@@ -59,7 +59,11 @@
             </div>
         </div>
         <script>
-            marked.setOptions({breaks : true});
+            marked.setOptions({
+                gfm: true,
+                breaks : true,
+                xhtml: true
+            });
             window.onload = function(){
                 var editorSource = document.querySelector('#editor');
                 // MarkdownからHTMLに変換する
