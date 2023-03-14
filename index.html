@@ -58,7 +58,8 @@
                 </div>
             </div>
         </div>
-                <script>
+        <script>
+            marked.setOptions({breaks : true});
             window.onload = function(){
                 var editorSource = document.querySelector('#editor');
                 // MarkdownからHTMLに変換する
