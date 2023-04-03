@@ -7,6 +7,7 @@
         <link href="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/bootstrap-5.0.2/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/jquery/jquery-3.6.3.min.js"></script>
         <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/marked/marked.min.js"></script>
+        <script src=' https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=default' async></script>
         <!-- highlight.js -->
         <link rel="stylesheet" href="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/highlightjs/style.css">
         <script src="https://yo-train-ch.github.io/Markdown-editor-MAKUMAKU//lib/highlightjs/highlight.min.js"></script>
@@ -125,6 +126,16 @@
             		iframe.contentWindow.addEventListener('afterprint', () => iframe.remove());
             	}
             })
+            MathJax.Hub.Config({
+                tex2jax: {
+                    inlineMath:[
+                        [
+                            '$$', //開始記号
+                            '$$' //終了記号
+                        ]
+                    ]
+                }
+            });
         </script>
     </body>
 </html>
